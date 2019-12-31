@@ -88,6 +88,10 @@ const CviBlock = styled.div`
 const CurrencyLine = styled.tr`
   border-bottom: ${DesignToken.table.border};
 
+  &:nth-child(2n) {
+    background-color: ${DesignToken.table.stripe}38;
+  }
+
   td,
   th {
     padding: ${DesignToken.table.padding};

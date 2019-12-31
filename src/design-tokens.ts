@@ -68,6 +68,7 @@ export const DesignToken = {
 
   table: {
     border: `1px solid ${DefaultColors.primaryColor}`,
+    stripe: Color.glacier,
     padding: Padding.xs,
   },
 }
