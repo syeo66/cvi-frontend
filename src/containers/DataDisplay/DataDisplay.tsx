@@ -133,7 +133,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         <CviBlock>
           <h2>
             CVI: {round(indexValue, 0.01).toFixed(2)}&nbsp;
-            <Diff isNegative={diff < 0}>{round(diff, 0.01).toFixed(2)}</Diff>
+            <Diff isNegative={diff < 0}>{round(diff, 0.01).toFixed(2)}%</Diff>
           </h2>
           <p>{format(new Date(current.storedAt), DATE_TIME_FORMAT)}</p>
         </CviBlock>

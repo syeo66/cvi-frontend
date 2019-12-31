@@ -67,7 +67,7 @@ export const DesignToken = {
   },
 
   table: {
-    border: `1px solid ${Color.horizon}`,
+    border: `1px solid ${DefaultColors.primaryColor}`,
     padding: Padding.xs,
   },
 }
