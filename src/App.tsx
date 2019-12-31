@@ -6,6 +6,8 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Main from './components/Main'
 
+import DataFetcher from './containers/DataFetcher'
+
 import { DesignToken } from './design-tokens'
 
 interface AppContainerProps {
@@ -16,7 +18,9 @@ const AppContainer: React.FC<AppContainerProps> = ({ className }) => {
   return (
     <div className={className}>
       <Header>Crypto Value Index (CVI)</Header>
-      <Main>Main</Main>
+      <Main>
+        <DataFetcher />
+      </Main>
       <Footer>
         © 2017–{new Date().getFullYear()} Crypto Value Index / Red Ochsenbein, red@red0.ch
         <br />
@@ -34,7 +38,7 @@ const AppContainer: React.FC<AppContainerProps> = ({ className }) => {
 const App = styled(AppContainer)`
   display: flex;
   flex-direction: column;
-  min-height: 100%; 
+  min-height: 100%;
   color: ${DesignToken.textColor};
 `
 
