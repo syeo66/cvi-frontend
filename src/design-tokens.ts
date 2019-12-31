@@ -5,6 +5,8 @@ export enum Color {
   glacier = '#7C9EC2',
   rum = '#715E85',
   ebonyClay = '#212836',
+  monza = '#dd0000',
+  green = '#00bb00',
 }
 
 export enum Padding {
@@ -16,7 +18,7 @@ export enum Padding {
   xxl = '2.4rem',
 }
 
-export enum FontSizes {
+export enum FontSize {
   xs = '0.8rem',
   s = '1rem',
   m = '1.4rem',
@@ -29,10 +31,14 @@ export enum FontSizes {
 const DefaultColors = {
   backgroundColor: Color.pampas,
   textColor: Color.ebonyClay,
+  linkColor: Color.rum,
+
+  positiveColor: Color.green,
+  negativeColor: Color.monza,
+
   primaryColor: Color.horizon,
   secondaryColor: Color.rum,
   tertiaryColor: Color.glacier,
-  linkColor: Color.rum,
 }
 
 export const DesignToken = {
@@ -44,15 +50,24 @@ export const DesignToken = {
 
   maxWidth: '1170px',
 
+  cviDisplay: {
+    fontSize: FontSize.xxl,
+  },
+
   header: {
     backgroundColor: Color.ebonyClay,
     textColor: Color.glacier,
-    textSize: FontSizes.xl,
+    textSize: FontSize.xl,
   },
 
   footer: {
     backgroundColor: Color.glacier,
     textColor: DefaultColors.textColor,
-    textSize: FontSizes.xs,
+    textSize: FontSize.xs,
+  },
+
+  table: {
+    border: `1px solid ${Color.horizon}`,
+    padding: Padding.xs,
   },
 }
