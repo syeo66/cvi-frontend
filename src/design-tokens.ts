@@ -1,10 +1,10 @@
 // Options
 export enum Color {
-  grayNurse = '#EFF0EF',
-  burningSand = '#D79673',
-  bouquet = '#B28BAC',
-  tapestry = '#B35F9E',
-  outerSpace = '#2C3136',
+  pampas = '#F8F7F6',
+  horizon = '#5D7FA9',
+  glacier = '#7C9EC2',
+  rum = '#715E85',
+  ebonyClay = '#212836',
 }
 
 export enum Padding {
@@ -27,19 +27,30 @@ export enum FontSizes {
 
 // Decisions
 const DefaultColors = {
-  backgroundColor: Color.grayNurse,
-  textColor: Color.outerSpace,
-  primaryColor: Color.tapestry,
-  secondaryColor: Color.burningSand,
+  backgroundColor: Color.pampas,
+  textColor: Color.ebonyClay,
+  primaryColor: Color.horizon,
+  secondaryColor: Color.rum,
+  tertiaryColor: Color.glacier,
+  linkColor: Color.rum,
 }
 
 export const DesignToken = {
   ...DefaultColors,
+
+  lineHeightFactor: 1.613,
+
   defaultPadding: Padding.m,
 
   header: {
-    backgroundColor: Color.outerSpace,
-    textColor: Color.bouquet,
+    backgroundColor: Color.ebonyClay,
+    textColor: Color.glacier,
     textSize: FontSizes.xl,
+  },
+
+  footer: {
+    backgroundColor: Color.glacier,
+    textColor: DefaultColors.textColor,
+    textSize: FontSizes.xs,
   },
 }
