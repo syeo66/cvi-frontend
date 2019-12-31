@@ -18,10 +18,6 @@ const Header = styled(HeaderContainer)`
   background-color: ${DesignToken.header.backgroundColor};
   color: ${DesignToken.header.textColor};
   padding: ${DesignToken.defaultPadding};
-
-  ${SiteTitle} {
-    margin: 0;
-  }
 `
 
 export default Header

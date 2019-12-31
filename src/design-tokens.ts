@@ -42,6 +42,8 @@ export const DesignToken = {
 
   defaultPadding: Padding.m,
 
+  maxWidth: '1170px',
+
   header: {
     backgroundColor: Color.ebonyClay,
     textColor: Color.glacier,
