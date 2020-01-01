@@ -33,6 +33,7 @@ interface CviData {
   previous: CviObject | null
   previousDay: CviObject
   next: CviObject | null
+  plotlyData: any
 }
 
 const toLocalIsoTime = (d: Date) => {

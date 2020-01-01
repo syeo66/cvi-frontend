@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
+import Plot from 'react-plotly.js'
 
 import StyledLink from '../../components/StylesLink'
 
@@ -38,6 +39,7 @@ interface Data {
   next: CviObject | null
   first: BasketEntry
   entries: BasketEntry[]
+  plotlyData: any
 }
 
 interface DataDisplayProps {
@@ -67,7 +69,11 @@ const CviHeading = styled.div`
   width: 100%;
 `
 
+interface TimeNavigationProps {
+  textAlign?: 'left' | 'center' | 'right'
+}
 const TimeNavigation = styled.div`
+  text-align: ${(props: TimeNavigationProps) => props.textAlign || 'left'};
   white-space: nowrap;
   flex-basis: 25%;
   flex-grow: 0;
@@ -110,6 +116,13 @@ const Cell = styled.td`
   white-space: nowrap;
 `
 
+const PlotArea = styled.div`
+  width: 100%;
+  height: 0;
+  min-height: 400px;
+  margin-bottom: ${DesignToken.defaultPadding};
+`
+
 interface DiffProps {
   isNegative?: boolean
 }
@@ -119,7 +132,7 @@ const Diff = styled.small`
 `
 
 const DataDisplay: React.FC<DataDisplayProps> = ({
-  data: { indexValue, previous, next, current, previousDay, entries, first },
+  data: { indexValue, previous, next, current, previousDay, entries, first, plotlyData },
 }) => {
   const diff = ((current.value - previousDay.value) / current.value) * 100
 
@@ -141,7 +154,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
           </h2>
           <p>{format(new Date(current.storedAt), DATE_TIME_FORMAT)}</p>
         </CviBlock>
-        <TimeNavigation>
+        <TimeNavigation textAlign="right">
           {!!next && (
             <StyledLink to={`/${next.storedAt}`}>
               {format(new Date(next.storedAt), DATE_TIME_FORMAT)}&nbsp;
@@ -150,6 +163,33 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
           )}
         </TimeNavigation>
       </CviHeading>
+      <PlotArea>
+        <Plot
+          data={plotlyData}
+          layout={{
+            title: 'Crypto Value Index',
+            autosize: true,
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            margin: {
+              l: 25,
+              r: 0,
+              b: 25,
+              t: 100,
+              pad: 0,
+            },
+            yaxis: {
+              type: 'log',
+              gridcolor: DesignToken.primaryColor + '30',
+            },
+            xaxis: {
+              gridcolor: DesignToken.primaryColor + '30',
+            },
+          }}
+          style={{ width: '100%', height: '100%' }}
+          useResizeHandler
+        />
+      </PlotArea>
       <Table>
         <thead>
           <CurrencyLine>
