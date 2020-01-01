@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
 
-import Anchor from '../../components/Anchor'
+import StyledLink from '../../components/StylesLink'
 
 import { round } from '../../utils'
 
@@ -128,10 +128,10 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
       <CviHeading>
         <TimeNavigation>
           {!!previous && (
-            <Anchor>
+            <StyledLink to={`/${previous.storedAt}`}>
               <FontAwesomeIcon title="previous" icon={faArrowLeft} />
               &nbsp;{format(new Date(previous.storedAt), DATE_TIME_FORMAT)}
-            </Anchor>
+            </StyledLink>
           )}
         </TimeNavigation>
         <CviBlock>
@@ -143,10 +143,10 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         </CviBlock>
         <TimeNavigation>
           {!!next && (
-            <Anchor>
-              {format(new Date(next.storedAt), DATE_TIME_FORMAT)}&nbps;
+            <StyledLink to={`/${next.storedAt}`}>
+              {format(new Date(next.storedAt), DATE_TIME_FORMAT)}&nbsp;
               <FontAwesomeIcon title="next" icon={faArrowRight} />
-            </Anchor>
+            </StyledLink>
           )}
         </TimeNavigation>
       </CviHeading>
