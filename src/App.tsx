@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -7,9 +7,9 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Main from './components/Main'
 
-import DataFetcher from './containers/DataFetcher'
-
 import { DesignToken } from './design-tokens'
+
+const DataFetcher = lazy(() => import('./containers/DataFetcher'))
 
 interface AppContainerProps {
   className?: string
@@ -19,11 +19,13 @@ const AppContainer: React.FC<AppContainerProps> = ({ className }) => {
   return (
     <Router>
       <div className={className}>
-        <Header>Crypto Value Index (CVI)</Header>
+        <Header>Crypto Value Index</Header>
         <Main>
           <Switch>
             <Route path="/:date?">
-              <DataFetcher />
+              <Suspense fallback={<>Loading...</>}>
+                <DataFetcher />
+              </Suspense>
             </Route>
           </Switch>
         </Main>

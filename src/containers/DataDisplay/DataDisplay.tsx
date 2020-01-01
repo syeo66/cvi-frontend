@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faArrowRight, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
-import Plot from 'react-plotly.js'
 
 import StyledLink from '../../components/StylesLink'
 
@@ -11,6 +10,8 @@ import { round } from '../../utils'
 
 import { DesignToken } from '../../design-tokens'
 import { DATE_TIME_FORMAT } from '../../constants'
+
+const Plot = lazy(() => import('react-plotly.js'))
 
 interface Currency {
   id: number
@@ -150,7 +151,10 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         <CviBlock>
           <h2>
             CVI: {round(indexValue, 0.01).toFixed(2)}&nbsp;
-            <Diff isNegative={diff < 0}>{round(diff, 0.01).toFixed(2)}%</Diff>
+            <Diff isNegative={diff < 0}>
+              <FontAwesomeIcon icon={diff < 0 ? faArrowDown : faArrowUp} />
+              &nbsp;{round(diff, 0.01).toFixed(2)}%
+            </Diff>
           </h2>
           <p>{format(new Date(current.storedAt), DATE_TIME_FORMAT)}</p>
         </CviBlock>
@@ -164,31 +168,33 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         </TimeNavigation>
       </CviHeading>
       <PlotArea>
-        <Plot
-          data={plotlyData}
-          layout={{
-            title: 'Crypto Value Index',
-            autosize: true,
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            margin: {
-              l: 25,
-              r: 0,
-              b: 25,
-              t: 100,
-              pad: 0,
-            },
-            yaxis: {
-              type: 'log',
-              gridcolor: DesignToken.primaryColor + '30',
-            },
-            xaxis: {
-              gridcolor: DesignToken.primaryColor + '30',
-            },
-          }}
-          style={{ width: '100%', height: '100%' }}
-          useResizeHandler
-        />
+        <Suspense fallback={<>Loading...</>}>
+          <Plot
+            data={plotlyData}
+            layout={{
+              title: 'Crypto Value Index',
+              autosize: true,
+              paper_bgcolor: 'rgba(0,0,0,0)',
+              plot_bgcolor: 'rgba(0,0,0,0)',
+              margin: {
+                l: 25,
+                r: 0,
+                b: 25,
+                t: 100,
+                pad: 0,
+              },
+              yaxis: {
+                type: 'log',
+                gridcolor: DesignToken.primaryColor + '30',
+              },
+              xaxis: {
+                gridcolor: DesignToken.primaryColor + '30',
+              },
+            }}
+            style={{ width: '100%', height: '100%' }}
+            useResizeHandler
+          />
+        </Suspense>
       </PlotArea>
       <Table>
         <thead>
