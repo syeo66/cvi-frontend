@@ -27,6 +27,10 @@ export enum FontSize {
   xxl = '2.2rem',
 }
 
+export enum BreakPoint {
+  mobile = '768px',
+}
+
 // Decisions
 const DefaultColors = {
   backgroundColor: Color.pampas,
@@ -70,5 +74,9 @@ export const DesignToken = {
     border: `1px solid ${DefaultColors.primaryColor}`,
     stripe: Color.glacier,
     padding: Padding.xs,
+    textSize: {
+      mobile: FontSize.xs,
+      desktop: FontSize.s,
+    },
   },
 }

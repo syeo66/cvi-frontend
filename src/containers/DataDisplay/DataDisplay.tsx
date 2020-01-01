@@ -8,7 +8,7 @@ import StyledLink from '../../components/StylesLink'
 
 import { round } from '../../utils'
 
-import { DesignToken } from '../../design-tokens'
+import { DesignToken, BreakPoint } from '../../design-tokens'
 import { DATE_TIME_FORMAT } from '../../constants'
 
 const Plot = lazy(() => import('react-plotly.js'))
@@ -68,6 +68,10 @@ const CviHeading = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+
+  @media (max-width: ${BreakPoint.mobile}) {
+    flex-direction: column;
+  }
 `
 
 interface TimeNavigationProps {
@@ -79,6 +83,11 @@ const TimeNavigation = styled.div`
   flex-basis: 25%;
   flex-grow: 0;
   flex-shrink: 1;
+
+  @media (max-width: ${BreakPoint.mobile}) {
+    padding-bottom: ${DesignToken.defaultPadding};
+    text-align: center;
+  }
 `
 
 const CviBlock = styled.div`
@@ -89,6 +98,10 @@ const CviBlock = styled.div`
     margin: 0 0 0;
     font-size: ${DesignToken.cviDisplay.fontSize};
     line-height: calc(${DesignToken.cviDisplay.fontSize});
+  }
+
+  @media (max-width: ${BreakPoint.mobile}) {
+    padding-bottom: ${DesignToken.defaultPadding};
   }
 `
 
@@ -107,14 +120,20 @@ const CurrencyLine = styled.tr`
   th {
     text-align: left;
   }
+
+  font-size: ${DesignToken.table.textSize.desktop};
+  @media (max-width: ${BreakPoint.mobile}) {
+    font-size: ${DesignToken.table.textSize.mobile};
+  }
 `
 
 interface CellProps {
   textAlign?: 'left' | 'center' | 'right'
+  noWrap?: boolean
 }
 const Cell = styled.td`
   text-align: ${(props: CellProps) => props.textAlign || 'left'};
-  white-space: nowrap;
+  white-space: ${props => (props.noWrap ? 'nowrap' : 'normal')};
 `
 
 const PlotArea = styled.div`
@@ -210,7 +229,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
           {entries.map((entry, i) => (
             <CurrencyLine key={entry.currency.symbol}>
               <Cell>{i + 1}</Cell>
-              <Cell>
+              <Cell noWrap>
                 <CurrencyIcon
                   src={`https://bcb.red0.ch/ccicons/transparent/${entry.currency.symbol}.png`}
                   alt={entry.currency.symbol}
