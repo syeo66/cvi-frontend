@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
@@ -155,6 +155,11 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
   data: { indexValue, previous, next, current, previousDay, entries, first, plotlyData },
 }) => {
   const diff = ((current.value - previousDay.value) / current.value) * 100
+  const formattedCvi = round(indexValue, 0.01).toFixed(2)
+
+  useEffect(() => {
+    document.title = `CVI: ${formattedCvi} - Crypto Value Index`
+  }, [formattedCvi])
 
   return (
     <DataDisplayContainer>
@@ -169,7 +174,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
         </TimeNavigation>
         <CviBlock>
           <h2>
-            CVI: {round(indexValue, 0.01).toFixed(2)}&nbsp;
+            CVI: {formattedCvi}&nbsp;
             <Diff isNegative={diff < 0}>
               <FontAwesomeIcon icon={diff < 0 ? faArrowDown : faArrowUp} />
               &nbsp;{round(diff, 0.01).toFixed(2)}%
