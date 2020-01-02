@@ -1,6 +1,9 @@
 {
   "name": "cvi-frontend",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "The new (2020) frontend for cryptovalueindex.com",
+  "homepage": "https://cryptovalueindex.com/",
+  "author": "Red Ochsenbein <red@redochsenbein.ch>",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
