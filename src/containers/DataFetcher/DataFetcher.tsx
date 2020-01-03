@@ -2,6 +2,7 @@ import React, { useMemo, useState, useCallback, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
 import DataDisplay from '../DataDisplay'
+import Loader from '../../components/Loader'
 
 interface CviObject {
   id: number
@@ -45,6 +46,7 @@ const toLocalIsoTime = (d: Date) => {
 const DataFetcher: React.FC = () => {
   const [data, setData] = useState<null | CviData>(null)
   const [refetchAt, setRefetchAt] = useState<number | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const { date } = useParams()
   const history = useHistory()
@@ -56,6 +58,7 @@ const DataFetcher: React.FC = () => {
       fetch('https://api.cryptovalueindex.com/?type=json' + (zonedDate ? `&date=${zonedDate}` : ''))
         .then(response => response.json())
         .then(response => {
+          setLoading(false)
           setData(response)
           if (!response.next) {
             setRefetchAt(response.refresh)
@@ -69,6 +72,7 @@ const DataFetcher: React.FC = () => {
   )
 
   useEffect(() => {
+    setLoading(true)
     fetchData()
   }, [fetchData])
 
@@ -86,6 +90,7 @@ const DataFetcher: React.FC = () => {
     setRefetchAt(null)
 
     setTimeout(() => {
+      setLoading(true)
       fetchData()
     }, 1000)
   }, [fetchData, refetchAt])
@@ -99,7 +104,12 @@ const DataFetcher: React.FC = () => {
     return <>Loading...</>
   }
 
-  return <DataDisplay data={data} />
+  return (
+    <>
+      {loading && <Loader />}
+      <DataDisplay data={data} />
+    </>
+  )
 }
 
 export default DataFetcher
