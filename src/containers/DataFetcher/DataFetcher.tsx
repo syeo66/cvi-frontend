@@ -90,24 +90,24 @@ const DataFetcher: React.FC = () => {
     setRefetchAt(null)
 
     setTimeout(() => {
+      if (loading) {
+        setRefetchAt(15)
+      }
+
       setLoading(true)
       fetchData()
     }, 1000)
-  }, [fetchData, refetchAt])
+  }, [fetchData, refetchAt, loading])
 
   useEffect(() => {
     const id = setInterval(checkFetch, 1000)
     return () => clearInterval(id)
   })
 
-  if (!data) {
-    return <>Loading...</>
-  }
-
   return (
     <>
       {loading && <Loader />}
-      <DataDisplay data={data} />
+      {!!data ? <DataDisplay data={data} loading={loading} /> : <>Loading...</>}
     </>
   )
 }

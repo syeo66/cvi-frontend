@@ -45,6 +45,7 @@ interface Data {
 
 interface DataDisplayProps {
   data: Data
+  loading: boolean
 }
 
 const Table = styled.table`
@@ -153,6 +154,7 @@ const Diff = styled.small`
 
 const DataDisplay: React.FC<DataDisplayProps> = ({
   data: { indexValue, previous, next, current, previousDay, entries, first, plotlyData },
+  loading,
 }) => {
   const diff = ((current.value - previousDay.value) / current.value) * 100
   const formattedCvi = round(indexValue, 0.01).toFixed(2)
@@ -165,7 +167,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     <DataDisplayContainer>
       <CviHeading>
         <TimeNavigation>
-          {!!previous && (
+          {!!previous && !loading && (
             <StyledLink to={`/${previous.storedAt}`}>
               <FontAwesomeIcon title="previous" icon={faArrowLeft} />
               &nbsp;{format(new Date(previous.storedAt), DATE_TIME_FORMAT)}
@@ -183,7 +185,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
           <p>{format(new Date(current.storedAt), DATE_TIME_FORMAT)}</p>
         </CviBlock>
         <TimeNavigation textAlign="right">
-          {!!next && (
+          {!!next && !loading && (
             <StyledLink to={`/${next.storedAt}`}>
               {format(new Date(next.storedAt), DATE_TIME_FORMAT)}&nbsp;
               <FontAwesomeIcon title="next" icon={faArrowRight} />
