@@ -167,8 +167,8 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
     <DataDisplayContainer>
       <CviHeading>
         <TimeNavigation>
-          {!!previous && !loading && (
-            <StyledLink to={`/${previous.storedAt}`}>
+          {previous && (
+            <StyledLink to={`/${previous.storedAt}`} disabled={loading}>
               <FontAwesomeIcon title="previous" icon={faArrowLeft} />
               &nbsp;{format(new Date(previous.storedAt), DATE_TIME_FORMAT)}
             </StyledLink>
@@ -185,8 +185,8 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
           <p>{format(new Date(current.storedAt), DATE_TIME_FORMAT)}</p>
         </CviBlock>
         <TimeNavigation textAlign="right">
-          {!!next && !loading && (
-            <StyledLink to={`/${next.storedAt}`}>
+          {!!next && (
+            <StyledLink to={`/${next.storedAt}`} disabled={loading}>
               {format(new Date(next.storedAt), DATE_TIME_FORMAT)}&nbsp;
               <FontAwesomeIcon title="next" icon={faArrowRight} />
             </StyledLink>
