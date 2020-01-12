@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, useLocation } from 'react-router-dom'
 
 import DataDisplay from '../DataDisplay'
 import Loader from '../../components/Loader'
@@ -49,6 +49,7 @@ const DataFetcher: React.FC = () => {
   const [loading, setLoading] = useState(false)
 
   const { date } = useParams()
+  const { pathname } = useLocation()
   const history = useHistory()
   const dateObject = useMemo(() => (!!date ? new Date(date) : null), [date])
   const zonedDate = useMemo(() => (dateObject ? toLocalIsoTime(dateObject) : null), [dateObject])
@@ -62,13 +63,13 @@ const DataFetcher: React.FC = () => {
           setData(response)
           if (!response.next) {
             setRefetchAt(response.refresh)
-            if (zonedDate) {
+            if (pathname !== '/') {
               history.push('/')
             }
           }
           return response
         }),
-    [history, zonedDate]
+    [pathname, history, zonedDate]
   )
 
   useEffect(() => {
@@ -102,7 +103,7 @@ const DataFetcher: React.FC = () => {
   useEffect(() => {
     const id = setInterval(checkFetch, 1000)
     return () => clearInterval(id)
-  })
+  }, [checkFetch])
 
   return (
     <>
