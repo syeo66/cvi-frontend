@@ -30,6 +30,7 @@ const Loader = styled(LoaderComponent)`
   border-radius: 100%;
   background-color: ${DesignToken.backgroundColor};
   padding: 0.5rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
 `
 
 export default Loader
