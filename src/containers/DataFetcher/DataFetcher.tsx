@@ -1,8 +1,11 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { parseISO } from 'date-fns'
 
 import DataDisplay from '../DataDisplay'
 import Loader from '../../components/Loader'
+
+const parseDate = (date: string) => parseISO(date)
 
 interface CviObject {
   id: number
@@ -51,7 +54,7 @@ const DataFetcher: React.FC = () => {
   const { date } = useParams()
   const { pathname } = useLocation()
   const history = useHistory()
-  const dateObject = useMemo(() => (!!date ? new Date(date) : null), [date])
+  const dateObject = useMemo(() => (!!date ? parseDate(date) : null), [date])
   const zonedDate = useMemo(() => (dateObject ? toLocalIsoTime(dateObject) : null), [dateObject])
 
   const fetchData = useCallback(

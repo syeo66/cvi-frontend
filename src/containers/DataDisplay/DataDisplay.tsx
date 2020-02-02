@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 
 import StyledLink from '../../components/StylesLink'
 
@@ -12,6 +12,8 @@ import { DesignToken, BreakPoint } from '../../design-tokens'
 import { DATE_TIME_FORMAT } from '../../constants'
 
 const Plot = lazy(() => import('react-plotly.js'))
+
+const parseDate = (date: string) => parseISO(date)
 
 interface Currency {
   id: number
@@ -170,7 +172,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
           {previous && (
             <StyledLink to={`/${previous.storedAt}`} disabled={loading}>
               <FontAwesomeIcon title="previous" icon={faArrowLeft} />
-              &nbsp;{format(new Date(previous.storedAt), DATE_TIME_FORMAT)}
+              &nbsp;{format(parseDate(previous.storedAt), DATE_TIME_FORMAT)}
             </StyledLink>
           )}
         </TimeNavigation>
@@ -182,12 +184,12 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
               &nbsp;{round(diff, 0.01).toFixed(2)}%
             </Diff>
           </h2>
-          <p>{format(new Date(current.storedAt), DATE_TIME_FORMAT)}</p>
+          <p>{format(parseDate(current.storedAt), DATE_TIME_FORMAT)}</p>
         </CviBlock>
         <TimeNavigation textAlign="right">
           {!!next && (
             <StyledLink to={`/${next.storedAt}`} disabled={loading}>
-              {format(new Date(next.storedAt), DATE_TIME_FORMAT)}&nbsp;
+              {format(parseDate(next.storedAt), DATE_TIME_FORMAT)}&nbsp;
               <FontAwesomeIcon title="next" icon={faArrowRight} />
             </StyledLink>
           )}
@@ -250,7 +252,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({
           ))}
         </tbody>
       </Table>
-      <div>Reference date: {format(new Date(first.storedAt), DATE_TIME_FORMAT)}</div>
+      <div>Reference date: {format(parseDate(first.storedAt), DATE_TIME_FORMAT)}</div>
     </DataDisplayContainer>
   )
 }
