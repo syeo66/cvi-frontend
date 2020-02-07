@@ -36,8 +36,7 @@ const AppContainer: React.FC<AppContainerProps> = ({ className }) => {
           <br />
           Donations are very welcome
           <br />
-          This site is not using cookies or any other tracking technology. However the embeded content - namely from
-          Hearthis and Youtube - might track you. You can use the <a href="https://brave.com/red071">brave browser</a>,
+          This site is not using cookies or any other tracking technology. You can use the <a href="https://brave.com/red071">brave browser</a>,
           some browser extensions or disable cookies in your settings to protect your privacy.
           <br />
           <Anchor href="https://redochsenbein.ch/contact">Imprint</Anchor> |{' '}
