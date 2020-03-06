@@ -19,8 +19,8 @@ const AppContainer: React.FC<AppContainerProps> = ({ className }) => {
       <div className={className}>
         <Header>Crypto Value Index</Header>
         <Main>
-          <a href="https://coinmarketcap.com/">coinmarketcap.com</a> changed it's API policy which makes it impossible
-          to keep the CVI up and running.
+          <a href="https://coinmarketcap.com/">coinmarketcap.com</a> changed its API policy which makes it impossible to
+          keep the CVI up and running.
           <br />
           It was a nice little project to have since 2017 but it is time to move on.
         </Main>
