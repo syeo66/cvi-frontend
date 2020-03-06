@@ -6,7 +6,8 @@ const Main = styled.main`
   width: calc(100% - ${DesignToken.defaultPadding} * 2);
   align-self: center;
   padding: ${DesignToken.defaultPadding};
-  max-width: ${DesignToken.maxWidth};
+  max-width: calc(${DesignToken.maxWidth} / 3);
+  line-height: 1.6;
 `
 
 export default Main

@@ -1,6 +1,6 @@
-import React, { lazy, Suspense } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import Anchor from './components/Anchor'
 import Footer from './components/Footer'
@@ -8,8 +8,6 @@ import Header from './components/Header'
 import Main from './components/Main'
 
 import { DesignToken } from './design-tokens'
-
-const DataFetcher = lazy(() => import('./containers/DataFetcher'))
 
 interface AppContainerProps {
   className?: string
@@ -21,13 +19,10 @@ const AppContainer: React.FC<AppContainerProps> = ({ className }) => {
       <div className={className}>
         <Header>Crypto Value Index</Header>
         <Main>
-          <Switch>
-            <Route path="/:date?">
-              <Suspense fallback={<>Loading...</>}>
-                <DataFetcher />
-              </Suspense>
-            </Route>
-          </Switch>
+          <a href="https://coinmarketcap.com/">coinmarketcap.com</a> changed it's API policy which makes it impossible
+          to keep the CVI up and running.
+          <br />
+          It was a nice little project to have since 2017 but it is time to move on.
         </Main>
         <Footer>
           © 2017–{new Date().getFullYear()} Crypto Value Index / Red Ochsenbein, red@red0.ch
@@ -36,8 +31,9 @@ const AppContainer: React.FC<AppContainerProps> = ({ className }) => {
           <br />
           Donations are very welcome
           <br />
-          This site is not using cookies or any other tracking technology. You can use the <a href="https://brave.com/red071">brave browser</a>,
-          some browser extensions or disable cookies in your settings to protect your privacy.
+          This site is not using cookies or any other tracking technology. You can use the{' '}
+          <a href="https://brave.com/red071">brave browser</a>, some browser extensions or disable cookies in your
+          settings to protect your privacy.
           <br />
           <Anchor href="https://redochsenbein.ch/contact">Imprint</Anchor> |{' '}
           <Anchor href="https://redochsenbein.ch/privacy">Privacy Policy</Anchor>
